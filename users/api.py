@@ -21,7 +21,7 @@ class User(Resource):
                         help='Password is required')
 
     def post(self):
-        data = UserModel.parser.parse_args()
+        data = User.parser.parse_args()
         email = data['email']
         password = data['password']
 
