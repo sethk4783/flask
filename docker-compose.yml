@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+
+  database-dev:
+    container_name: "investor_portal_db"
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: "investor_portal"
+      MARIADB_DATABASE: "investor_portal"
+    volumes:
+     - ../mariadb:/var/lib/mysql
+    ports:
+     - 3306:3306
+
+  api-dev:
+    container_name: "investor_portal_api"
+    build: .
+    restart: always
+    volumes:
+      - .:/app
+    command: flask run
+    depends_on:
+      - database-dev
+    ports:
+      - 5005:5000
